@@ -142,6 +142,8 @@ public class ChartTouchHandler {
             } else if (ContainerScrollType.VERTICAL == containerScrollType && !scrollResult.canScrollY
                     && !scaleGestureDetector.isInProgress()) {
                 viewParent.requestDisallowInterceptTouchEvent(false);
+            } else if (ContainerScrollType.BOTH == containerScrollType && !scaleGestureDetector.isInProgress()) {
+                viewParent.requestDisallowInterceptTouchEvent(false);
             }
         }
     }
