@@ -55,6 +55,7 @@ public class Line {
         this.hasLabels = line.hasLabels;
         this.hasLabelsOnlyForSelected = line.hasLabelsOnlyForSelected;
         this.isFilled = line.isFilled;
+        this.type = line.type;
         this.shape = line.shape;
         this.pathEffect = line.pathEffect;
         this.formatter = line.formatter;
