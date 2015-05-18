@@ -21,6 +21,7 @@ import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.ComboLineColumnChartData;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.LineType;
 import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.util.ChartUtils;
@@ -178,7 +179,7 @@ public class ComboLineColumnChartActivity extends ActionBarActivity {
 
                 Line line = new Line(values);
                 line.setColor(ChartUtils.COLORS[i]);
-                line.setCubic(isCubic);
+                line.setType(isCubic ? LineType.CUBIC : LineType.LINEAR);
                 line.setHasLabels(hasLabels);
                 line.setHasLines(hasLines);
                 line.setHasPoints(hasPoints);

@@ -20,8 +20,8 @@
         android:title="Toggle points"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/action_toggle_cubic"
-        android:title="Toggle Cubic curve"
+        android:id="@+id/action_toggle_type"
+        android:title="Toggle line type"
         app:showAsAction="never"/>
     <item
         android:id="@+id/action_toggle_area"

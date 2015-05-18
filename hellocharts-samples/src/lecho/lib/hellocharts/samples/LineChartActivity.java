@@ -20,6 +20,7 @@ import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.LineType;
 import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.model.Viewport;
@@ -58,7 +59,7 @@ public class LineChartActivity extends ActionBarActivity {
         private ValueShape shape = ValueShape.CIRCLE;
         private boolean isFilled = false;
         private boolean hasLabels = false;
-        private boolean isCubic = false;
+        private LineType type = LineType.LINEAR;
         private boolean hasLabelForSelected = false;
 
         public PlaceholderFragment() {
@@ -111,8 +112,8 @@ public class LineChartActivity extends ActionBarActivity {
                 togglePoints();
                 return true;
             }
-            if (id == R.id.action_toggle_cubic) {
-                toggleCubic();
+            if (id == R.id.action_toggle_type) {
+                toggleType();
                 return true;
             }
             if (id == R.id.action_toggle_area) {
@@ -194,7 +195,7 @@ public class LineChartActivity extends ActionBarActivity {
             shape = ValueShape.CIRCLE;
             isFilled = false;
             hasLabels = false;
-            isCubic = false;
+            type = LineType.LINEAR;
             hasLabelForSelected = false;
 
             chart.setValueSelectionEnabled(hasLabelForSelected);
@@ -225,7 +226,7 @@ public class LineChartActivity extends ActionBarActivity {
                 Line line = new Line(values);
                 line.setColor(ChartUtils.COLORS[i]);
                 line.setShape(shape);
-                line.setCubic(isCubic);
+                line.setType(type);
                 line.setFilled(isFilled);
                 line.setHasLabels(hasLabels);
                 line.setHasLabelsOnlyForSelected(hasLabelForSelected);
@@ -282,12 +283,25 @@ public class LineChartActivity extends ActionBarActivity {
             generateData();
         }
 
-        private void toggleCubic() {
-            isCubic = !isCubic;
+        private void toggleType() {
+            switch (type){
+                case LINEAR:
+                    type = LineType.CUBIC;
+                    break;
+                case CUBIC:
+                    type = LineType.SQUARE;
+                    break;
+                case SQUARE:
+                    type = LineType.STEP;
+                    break;
+                case STEP:
+                    type = LineType.LINEAR;
+                    break;
+            }
 
             generateData();
 
-            if (isCubic) {
+            if (type == LineType.CUBIC) {
                 // It is good idea to manually set a little higher max viewport for cubic lines because sometimes line
                 // go above or below max/min. To do that use Viewport.inest() method and pass negative value as dy
                 // parameter or just set top and bottom values manually.

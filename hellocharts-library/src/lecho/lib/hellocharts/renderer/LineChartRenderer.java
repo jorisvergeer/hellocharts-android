@@ -112,12 +112,20 @@ public class LineChartRenderer extends AbstractChartRenderer {
 
         for (Line line : data.getLines()) {
             if (line.hasLines()) {
-                if (line.isCubic()) {
-                    drawSmoothPath(drawCanvas, line);
-                } else if (line.isSquare()) {
-                    drawSquarePath(drawCanvas, line);
-                } else {
-                    drawPath(drawCanvas, line);
+                switch(line.getType())
+                {
+                    case LINEAR:
+                        drawPath(drawCanvas, line);
+                        break;
+                    case CUBIC:
+                        drawSmoothPath(drawCanvas, line);
+                        break;
+                    case SQUARE:
+                        drawSquarePath(drawCanvas, line);
+                        break;
+                    case STEP:
+                        drawStepPath(drawCanvas, line);
+                        break;
                 }
             }
         }
@@ -254,6 +262,38 @@ public class LineChartRenderer extends AbstractChartRenderer {
             } else {
                 path.lineTo(rawX, previousRawY);
                 path.lineTo(rawX, rawY);
+            }
+
+            previousRawY = rawY;
+
+            ++valueIndex;
+
+        }
+
+        canvas.drawPath(path, linePaint);
+
+        if (line.isFilled()) {
+            drawArea(canvas, line);
+        }
+
+        path.reset();
+    }
+
+    private void drawStepPath(Canvas canvas, final Line line) {
+        prepareLinePaint(line);
+
+        int valueIndex = 0;
+        float previousRawY = 0;
+        for (PointValue pointValue : line.getValues()) {
+
+            final float rawX = computator.computeRawX(pointValue.getX());
+            final float rawY = computator.computeRawY(pointValue.getY());
+
+            if (valueIndex == 0) {
+                path.moveTo(rawX, rawY);
+            } else {
+                path.lineTo(rawX, previousRawY);
+                path.moveTo(rawX, rawY);
             }
 
             previousRawY = rawY;
