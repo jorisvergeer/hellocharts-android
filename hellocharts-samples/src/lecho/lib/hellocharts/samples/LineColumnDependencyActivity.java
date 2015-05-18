@@ -18,6 +18,7 @@ import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.LineType;
 import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.model.Viewport;
@@ -137,7 +138,7 @@ public class LineColumnDependencyActivity extends ActionBarActivity {
             }
 
             Line line = new Line(values);
-            line.setColor(ChartUtils.COLOR_GREEN).setCubic(true);
+            line.setColor(ChartUtils.COLOR_GREEN).setType(LineType.CUBIC);
 
             List<Line> lines = new ArrayList<Line>();
             lines.add(line);

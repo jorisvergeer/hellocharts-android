@@ -29,9 +29,8 @@ public class Line {
     private boolean hasLines = true;
     private boolean hasLabels = false;
     private boolean hasLabelsOnlyForSelected = false;
-    private boolean isCubic = false;
-    private boolean isSquare = false;
     private boolean isFilled = false;
+    private LineType type = LineType.LINEAR;
     private ValueShape shape = ValueShape.CIRCLE;
     private PathEffect pathEffect;
     private LineChartValueFormatter formatter = new SimpleLineChartValueFormatter();
@@ -55,7 +54,6 @@ public class Line {
         this.hasLines = line.hasLines;
         this.hasLabels = line.hasLabels;
         this.hasLabelsOnlyForSelected = line.hasLabelsOnlyForSelected;
-        this.isCubic = line.isCubic;
         this.isFilled = line.isFilled;
         this.shape = line.shape;
         this.pathEffect = line.pathEffect;
@@ -195,26 +193,13 @@ public class Line {
         return this;
     }
 
-    public boolean isCubic() {
-        return isCubic;
-    }
-
-    public Line setCubic(boolean isCubic) {
-        this.isCubic = isCubic;
-        if(isSquare)
-            setSquare(false);
+    public Line setType(LineType type) {
+        this.type = type;
         return this;
     }
 
-    public boolean isSquare() {
-        return isSquare;
-    }
-
-    public Line setSquare(boolean isSquare) {
-        this.isSquare = isSquare;
-        if(isCubic)
-            setCubic(false);
-        return this;
+    public LineType getType() {
+        return type;
     }
 
     public boolean isFilled() {
