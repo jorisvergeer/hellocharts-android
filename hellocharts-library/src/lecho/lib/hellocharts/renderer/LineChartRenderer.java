@@ -304,9 +304,12 @@ public class LineChartRenderer extends AbstractChartRenderer {
 
         canvas.drawPath(path, linePaint);
 
+        //drawArea does not work when the line is interrupted which is the case with a step chart
+        /*
         if (line.isFilled()) {
             drawArea(canvas, line);
         }
+        */
 
         path.reset();
     }
